@@ -1,5 +1,5 @@
 ﻿using Core.Results.Abstract;
-using Entities.Entities.Concrete.TableModels;
+using Entities.Concrete.TableModels;
 
 namespace Business.Abstract
 {
@@ -7,7 +7,7 @@ namespace Business.Abstract
     {
         IResult Add(About entity);
         IResult Update(About entity);
-        IResult Delete(About entity);
+        IResult Delete(int id);
         IDataResult<List<About>> GetAll();
         IDataResult<About> GetById(int id);
     }

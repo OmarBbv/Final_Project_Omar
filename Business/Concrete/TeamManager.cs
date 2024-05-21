@@ -2,7 +2,7 @@
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
-using Entities.Entities.Concrete.TableModels;
+using Entities.Concrete.TableModels;
 
 namespace Business.Concrete
 {

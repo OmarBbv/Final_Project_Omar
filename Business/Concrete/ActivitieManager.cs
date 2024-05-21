@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BaseMessage;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
-using Entities.Entities.Concrete.TableModels;
+using Entities.Concrete.TableModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Business.Concrete
 {
@@ -16,10 +18,19 @@ namespace Business.Concrete
             return new SuccessResult(UIMessage.UIMessages.ADDED_MESSAGE);
         }
 
-        public IResult Delete(Activitie entity)
+        public IResult Delete(int id)
         {
-            _activitie.Delete(entity);
+            var data = GetById(id).Data;
+            data.Deleted = id;
+
+            _activitie.Update(data);
+
             return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+        }
+
+        public IDataResult<List<Activitie>> GetActiviteWithActivitieCategories()
+        {
+            return new SuccessDataResult<List<Activitie>>(_activitie.GetActiviteWithActivitieCategories());
         }
 
         public IDataResult<List<Activitie>> GetAll()

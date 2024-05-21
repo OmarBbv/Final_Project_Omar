@@ -1,14 +1,14 @@
 ﻿using Core.Results.Abstract;
-using Entities.Entities.Concrete.TableModels;
+using Entities.Concrete.TableModels;
 
 namespace Business.Abstract
 {
-    internal interface IActivitieService
+    public interface IActivitieService
     {
-            IResult Add(Activitie entity);
-            IResult Update(Activitie entity);
-            IResult Delete(Activitie entity);
-            IDataResult<List<Activitie>> GetAll();
-            IDataResult<Activitie> GetById(int id);
+        IResult Add(Activitie entity);
+        IResult Update(Activitie entity);
+        IResult Delete(int id);
+        IDataResult<List<Activitie>> GetActiviteWithActivitieCategories();
+        IDataResult<Activitie> GetById(int id);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Core.DataAccess.Abstract;
-using Entities.Entities.Concrete.TableModels;
+using Entities.Concrete.TableModels;
 
 namespace DataAccess.Abstract
 {

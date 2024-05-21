@@ -22,7 +22,7 @@ namespace DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.About", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.About", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Abouts");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Activitie", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Activitie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,10 +84,10 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("AboutId");
 
-                    b.ToTable("Activitie");
+                    b.ToTable("Activities");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Booking", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Booking", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -121,7 +121,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.ContactUs", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.ContactUs", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -158,7 +158,7 @@ namespace DataAccess.Migrations
                     b.ToTable("ContactUs");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Destination", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Destination", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -188,7 +188,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Destinations");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Package", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Package", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,7 +235,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Packages");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Position", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Position", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,7 +261,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Positions");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Reservation", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Reservation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -304,7 +304,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Service", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -338,7 +338,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Team", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Team", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -389,7 +389,7 @@ namespace DataAccess.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Testimonial", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Testimonial", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -431,9 +431,9 @@ namespace DataAccess.Migrations
                     b.ToTable("Testimonials");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Activitie", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Activitie", b =>
                 {
-                    b.HasOne("Entities.Entities.Concrete.TableModels.About", "About")
+                    b.HasOne("Entities.Concrete.TableModels.About", "About")
                         .WithMany("Activitie")
                         .HasForeignKey("AboutId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -442,9 +442,9 @@ namespace DataAccess.Migrations
                     b.Navigation("About");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Team", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Team", b =>
                 {
-                    b.HasOne("Entities.Entities.Concrete.TableModels.Position", "Position")
+                    b.HasOne("Entities.Concrete.TableModels.Position", "Position")
                         .WithMany("Teams")
                         .HasForeignKey("PositionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -453,12 +453,12 @@ namespace DataAccess.Migrations
                     b.Navigation("Position");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.About", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.About", b =>
                 {
                     b.Navigation("Activitie");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Concrete.TableModels.Position", b =>
+            modelBuilder.Entity("Entities.Concrete.TableModels.Position", b =>
                 {
                     b.Navigation("Teams");
                 });

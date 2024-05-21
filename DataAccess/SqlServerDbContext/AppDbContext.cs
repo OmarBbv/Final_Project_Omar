@@ -1,5 +1,6 @@
-﻿using Entities.Entities.Concrete.TableModels;
+﻿using Entities.Concrete.TableModels;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace DataAccess.SqlServerDbContext
 {
@@ -7,8 +8,13 @@ namespace DataAccess.SqlServerDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=TravelFinalProjectDb;Trusted_Connection=True;Encrypt=false;");
+            optionsBuilder.UseSqlServer(@"Server=Localhost;Database=TravelFinalProject4Db;Trusted_Connection=True;Encrypt=false;");
         }
+        //Burda Xetan VAr yoxla sonra migration et!
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        //}
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<Booking> Bookings { get; set; }
@@ -20,5 +26,6 @@ namespace DataAccess.SqlServerDbContext
         public DbSet<Service> Services { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
+        public DbSet<Activitie> Activities { get; set; }
     }
 }

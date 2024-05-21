@@ -1,8 +1,9 @@
 ﻿using Business.Abstract;
+using Business.UIMessage;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
-using Entities.Entities.Concrete.TableModels;
+using Entities.Concrete.TableModels;
 
 namespace Business.Concrete
 {
@@ -16,10 +17,13 @@ namespace Business.Concrete
             return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
         }
 
-        public IResult Delete(About entity)
+        public IResult Delete(int id)
         {
-            _about.Delete(entity);
-            return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+            var data = GetById(id).Data;
+            data.Deleted = id;
+
+            _about.Update(data);
+            return new SuccessResult(UIMessages.Deleted_MESSAGE);
         }
 
         public IDataResult<List<About>> GetAll()
