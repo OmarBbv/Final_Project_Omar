@@ -13,9 +13,13 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Şəkil Url</th>
+                            <th>Ad</th>
                             <th>Ünvan</th>
-                            <th></th>
+                            <th>Şəkil Url</th>
+                            <th>Müştəri sayı</th>
+                            <th>Qiymət</th>
+                            <th>Reyting</th>
+                            <th>Açıqlama</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,7 +28,12 @@
                             <tr>
                                 <td>@item.PhotoUrl</td>
                                 <td>@item.Location</td>
-                                <td>@item.</td>
+                                <td>@item.PhotoUrl</td>
+                                <td>@item.PersonCount</td>
+                                <td>@item.Price</td>
+                                <td>@item.Raiting</td>
+                                <td>@item.Description</td>
+                                <td></td>
 
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id">

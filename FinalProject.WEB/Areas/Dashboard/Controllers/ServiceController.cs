@@ -11,7 +11,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
 
         public IActionResult Index()
         {
-            var data = _manager.GetAll().Data;
+            var data = _manager.GetAll().Data.Where(x => x.Deleted == 0).ToList();
             return View(data);
         }
 

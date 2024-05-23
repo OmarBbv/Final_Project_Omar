@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.UIMessage;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
@@ -13,14 +14,18 @@ namespace Business.Concrete
         public IResult Add(Testimonial entity)
         {
             _testimonial.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.ADDED_MESSAGE);
+            return new SuccessResult(UIMessages.ADDED_MESSAGE);
         }
 
-        public IResult Delete(Testimonial entity)
+        public IResult Delete(int id)
         {
-            _testimonial.Delete(entity);
-            return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+            var data = GetById(id).Data;
+            data.Deleted = id;
+
+            _testimonial.Update(data);
+            return new SuccessResult(UIMessages.Deleted_MESSAGE);
         }
+
 
         public IDataResult<List<Testimonial>> GetAll()
         {

@@ -12,7 +12,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
 
         public IActionResult Index()
         {
-            var data = _package.GetAll().Data;
+            var data = _package.GetAll().Data.Where(x => x.Deleted == 0).ToList();
             return View(data);
         }
 

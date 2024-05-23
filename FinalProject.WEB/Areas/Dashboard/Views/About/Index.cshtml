@@ -30,7 +30,7 @@
                                     <a asp-action="Edit" asp-route-id="@item.Id">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a> |
-                                    <a item-value="@item.Id" item-title="@item.Title" class="btnDelete">
+                                    <a data-value="@item.Id" data-name="@item.Title" class="btnDelete">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-@section Scripts {
+ @section Scripts {
     <script>
         $(".btnDelete").click(function (e) {
             Swal.fire({

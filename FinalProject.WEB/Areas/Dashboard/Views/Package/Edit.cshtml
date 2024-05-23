@@ -6,6 +6,11 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Name" class="control-label">Ad</label>
+                <textarea asp-for="Name" class="form-control"></textarea>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Location" class="control-label">Ünvan</label>
                 <textarea asp-for="Location" class="form-control"></textarea>
                 <span asp-validation-for="Location" class="text-danger"></span>
@@ -15,6 +20,26 @@
                 <label asp-for="PhotoUrl" class="control-label">Şəkil Url</label>
                 <input asp-for="PhotoUrl" class="form-control" id="answer" />
                 <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonCount" class="control-label">Müştəri sayı</label>
+                <input asp-for="PersonCount" class="form-control" id="answer" />
+                <span asp-validation-for="PersonCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Qiymət</label>
+                <input asp-for="Price" class="form-control" id="answer" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Raiting" class="control-label">Reyting</label>
+                <input asp-for="Raiting" class="form-control" id="answer" />
+                <span asp-validation-for="Raiting" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Açıqlama</label>
+                <input asp-for="Description" class="form-control" id="answer" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">

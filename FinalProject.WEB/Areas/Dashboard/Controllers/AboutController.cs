@@ -11,21 +11,21 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
 
         public IActionResult Index()
         {
-            var data=_manager.GetAll().Data;
+            var data = _manager.GetAll().Data.Where(x => x.Deleted == 0).ToList();
             return View(data);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return  View();
+            return View();
         }
 
         [HttpPost]
         public IActionResult Create(About about)
         {
-            var data=_manager.Add(about);
-            if(data.IsSuccess)
+            var data = _manager.Add(about);
+            if (data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
@@ -35,31 +35,31 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var result=_manager.GetById(id).Data;
+            var result = _manager.GetById(id).Data;
             return View(result);
         }
 
         [HttpPost]
         public IActionResult Edit(About about)
         {
-            var result=_manager.Update(about);
-            if(result.IsSuccess)
+            var result = _manager.Update(about);
+            if (result.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
             return View(about);
         }
-        
+
         [HttpPost]
         public IActionResult Delete(int id)
         {
             var data = _manager.Delete(id);
-            if( data.IsSuccess)
+            if (data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
             return View(data);
         }
     }
-   
+
 }

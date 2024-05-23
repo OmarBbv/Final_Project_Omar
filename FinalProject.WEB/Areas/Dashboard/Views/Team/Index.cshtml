@@ -1,10 +1,10 @@
-﻿@model List<Reservation>
+﻿@model List<Team>
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <form action="Reservation/Create" method="get">
+                <form action="Team/Create" method="get">
                     <p>
                         <button class="btn btn-primary">@DefaultConstanValue.ADD_MESSAGE</button>
                     </p>
@@ -12,25 +12,26 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>PublicCount</th>
-                            <th>Message</th>
-                            <th>isContact</th>  
-                            <th>CreateDate</th>
+                            <th>Team</th>
+                            <th>Ad</th>
+                            <th>Soyad</th>
+                            <th>Şəkil Url</th>
+                            <th>Facebook link</th>
+                            <th>Twitter link</th>
+                            <th>Linkedn link</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>@item.Position</td>
                                 <td>@item.Name</td>
-                                <td>@item.Email</td>
-                                <td>@item.PublicCount</td>
-                                <td>@item.Message</td>
-                                <td>@item.CreateDate</td>
-                                <td>@item.isContact ? "true" : "false" </td>
-
+                                <td>@item.SurName</td>
+                                <td>@item.PhotoUrl</td>
+                                <td>@item.FaceBookLink</td>
+                                <td>@item.TwitterLink</td>
+                                <td>@item.LinkednLink</td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id">
                                         <i class="fa-solid fa-pen-to-square"></i>
@@ -67,7 +68,7 @@
                     let itemTitle = e.currentTarget.attributes[1].value;
                     $.ajax({
                         method: "POST",
-                        url: "Reservation/delete/",
+                        url: "Team/delete/",
                         data: {
                             id: itemId
                         }
@@ -78,7 +79,7 @@
                         icon: 'success',
 
                     }).then((result) => {
-                        window.location = "Reservation"
+                        window.location = "Team"
                     })
 
                 }

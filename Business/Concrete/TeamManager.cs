@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.UIMessage;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
@@ -16,10 +17,13 @@ namespace Business.Concrete
             return new SuccessResult(UIMessage.UIMessages.ADDED_MESSAGE);
         }
 
-        public IResult Delete(Team entity)
+        public IResult Delete(int id)
         {
-            _team.Delete(entity);
-            return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+            var data = GetById(id).Data;
+            data.Deleted = id;
+
+            _team.Update(data);
+            return new SuccessResult(UIMessages.Deleted_MESSAGE);
         }
 
         public IDataResult<List<Team>> GetAll()

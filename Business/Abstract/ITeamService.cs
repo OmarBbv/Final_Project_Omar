@@ -7,7 +7,7 @@ namespace Business.Abstract
     {
         IResult Add(Team entity);
         IResult Update(Team entity);
-        IResult Delete(Team entity);
+        IResult Delete(int id);
         IDataResult<List<Team>> GetAll();
         IDataResult<Team> GetById(int id);
     }

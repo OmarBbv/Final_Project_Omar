@@ -9,9 +9,11 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
     {
         ActivitieManager _manager = new();
         AboutManager _aboutManager = new();
+
         public IActionResult Index()
         {
-            var data=_manager.GetActiviteWithActivitieCategories().Data;
+            var data=_manager.GetActiviteWithActivitieCategories().Data.Where(x=> x.Deleted ==0).ToList();
+            //var data = _manager.GetAll().Data.Where(x => x.Deleted == 0).ToList();
             return View(data);
         }
         [HttpGet]

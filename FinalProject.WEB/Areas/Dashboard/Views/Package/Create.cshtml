@@ -27,6 +27,24 @@
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="PersonCount" class="control-label">Müştəri sayı</label>
+                <input asp-for="PersonCount" class="form-control" id="answer" />
+                <span asp-validation-for="PersonCount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Qiymət</label>
+                <input asp-for="Price" class="form-control" id="answer" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Raiting" class="control-label">Reyting</label>
+                <input asp-for="Raiting" class="form-control" id="answer" />
+                <span asp-validation-for="Raiting" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="@DefaultConstanValue.ADD_MESSAGE" class="btn btn-primary" />
             </div>
         </form>
