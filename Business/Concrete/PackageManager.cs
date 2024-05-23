@@ -1,15 +1,12 @@
 ﻿using Business.Abstract;
 using Business.UIMessage;
+using Core.Extension;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
-using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -17,10 +14,12 @@ namespace Business.Concrete
     {
         PackageDal _package = new();
 
-        public IResult Add(Package entity)
+        public IResult Add(PackageCreateDto dto, IFormFile photoUrl, string webRootPath)
         {
-            _package.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+            var model = PackageCreateDto.ToPackage(dto);
+            model.PhotoUrl = PictureHelper.UploadImage(photoUrl, webRootPath);
+            _package.Add(model);
+            return new SuccessResult(UIMessages.Deleted_MESSAGE);
         }
 
         public IResult Delete(int id)
@@ -44,10 +43,23 @@ namespace Business.Concrete
             return new SuccessDataResult<Package>(data);
         }
 
-        public IResult Update(Package entity)
+        public IResult Update(PackageUpdateDto dto, IFormFile photoUrl, string webRootPath)
         {
-            _package.Update(entity);
-            return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
+            var model = PackageUpdateDto.ToPackage(dto);
+            var value = GetById(dto.Id).Data;
+
+            if (photoUrl == null)
+            {
+                model.PhotoUrl = value.PhotoUrl;
+            }
+            else
+            {
+                model.PhotoUrl = PictureHelper.UploadImage(photoUrl, webRootPath);
+            }
+
+            model.LastUpdateDate = DateTime.Now;
+            _package.Update(model);
+            return new SuccessResult(UIMessages.UPDATE_MESSAGE);
         }
     }
 }

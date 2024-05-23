@@ -24,7 +24,9 @@
                             <tr>
                                 <td>@item.Title</td>
                                 <td>@item.Description</td>
-                                <td>@item.PhotoUrl</td>
+                                <td>
+                                    <img width="120" height="120" src="@item.PhotoUrl" alt="Alternate Text" />
+                                </td>
 
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id">

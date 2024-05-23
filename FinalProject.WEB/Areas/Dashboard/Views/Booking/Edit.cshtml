@@ -3,7 +3,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label">Başlıq</label>
@@ -17,8 +17,8 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="IconUrl" class="control-label">Şəkil adı</label>
-                <input asp-for="IconUrl" class="form-control" id="answer" />
+                <label asp-for="IconUrl" class="control-label">Şəkil</label>
+                <input asp-for="IconUrl" name="PhotoUrl" class="form-control" type="file" />
                 <span asp-validation-for="IconUrl" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />

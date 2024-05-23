@@ -1,5 +1,5 @@
 ﻿using Business.Concrete;
-using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -8,6 +8,12 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
     public class AboutController : Controller
     {
         AboutManager _manager = new();
+        private readonly IWebHostEnvironment _env;
+
+        public AboutController(IWebHostEnvironment webHostEnvironment)
+        {
+            _env = webHostEnvironment;
+        }
 
         public IActionResult Index()
         {
@@ -22,14 +28,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(About about)
+        public IActionResult Create(AboutCreateDto dto,IFormFile photoUrl)
         {
-            var data = _manager.Add(about);
+            var data = _manager.Add(dto,photoUrl,_env.WebRootPath);
             if (data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(about);
+            return View(dto);
         }
 
         [HttpGet]
@@ -40,14 +46,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(About about)
+        public IActionResult Edit(AboutUpdateDto dto,IFormFile photoUrl)
         {
-            var result = _manager.Update(about);
+            var result = _manager.Update(dto,photoUrl,_env.WebRootPath);
             if (result.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(about);
+            return View(dto);
         }
 
         [HttpPost]

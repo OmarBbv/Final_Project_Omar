@@ -1,5 +1,5 @@
 ﻿using Business.Concrete;
-using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -9,6 +9,13 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
     {
         TeamManager _manager = new();
         PositionManager _position = new ();
+        private readonly IWebHostEnvironment _env;
+
+        public TeamController(IWebHostEnvironment webHostEnvironment)
+        {
+            _env = webHostEnvironment;
+        }
+
 
         public IActionResult Index()
         {
@@ -20,20 +27,20 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         public IActionResult Create()
         {
             var result = _position.GetAll().Data;
-            ViewData["Position"] = _position.GetAll().Data;;
+            ViewData["Position"] = _position.GetAll().Data;
 
             return View(result);
         }
 
         [HttpPost]
-        public IActionResult Create(Team e)
+        public IActionResult Create(TeamCreateDto dto,IFormFile photoUrl)
         {
-            var data = _manager.Add(e);
-            if (data.IsSuccess)
+            var data = _manager.Add(dto,photoUrl,_env.WebRootPath);
+            if (!data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(e);
+            return View(dto);
         }
 
         [HttpGet]
@@ -44,14 +51,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Team e)
+        public IActionResult Edit(TeamUpdateDto dto,IFormFile photoUrl)
         {
-            var result = _manager.Update(e);
+            var result = _manager.Update(dto,photoUrl,_env.WebRootPath);
             if (result.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(e);
+            return View(dto);
         }
 
         [HttpPost]

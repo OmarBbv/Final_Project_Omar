@@ -1,9 +1,12 @@
 ﻿using Business.Abstract;
 using Business.UIMessage;
+using Core.Extension;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -11,10 +14,12 @@ namespace Business.Concrete
     {
         AboutDal _about = new();
 
-        public IResult Add(About entity)
+        public IResult Add(AboutCreateDto dto, IFormFile photoUrl, string webRootPath)
         {
-            _about.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+            var model = AboutCreateDto.ToAbout(dto);
+            model.PhotoUrl = PictureHelper.UploadImage(photoUrl, webRootPath);
+            _about.Add(model);
+            return new SuccessResult(UIMessages.Deleted_MESSAGE);
         }
 
         public IResult Delete(int id)
@@ -38,10 +43,22 @@ namespace Business.Concrete
             return new SuccessDataResult<About>(data);
         }
 
-        public IResult Update(About entity)
+        public IResult Update(AboutUpdateDto dto, IFormFile photoUrl, string webRootPath)
         {
-            _about.Update(entity);
-            return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
+            var model = AboutUpdateDto.ToAbout(dto);
+            var value = GetById(dto.Id).Data;
+            if (photoUrl == null)
+            {
+                model.PhotoUrl = value.PhotoUrl;
+            }
+            else
+            {
+                model.PhotoUrl = PictureHelper.UploadImage(photoUrl, webRootPath);
+            }
+
+            model.LastUpdateDate = DateTime.Now;
+            _about.Update(model);
+            return new SuccessResult(UIMessages.UPDATE_MESSAGE);
         }
     }
 }

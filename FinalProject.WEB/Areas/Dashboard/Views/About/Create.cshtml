@@ -1,9 +1,9 @@
-﻿@model About
+﻿@model AboutCreateDto
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label">Başlıq</label>
@@ -17,8 +17,8 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="PhotoUrl" class="control-label">Şəkil adı</label>
-                <input asp-for="PhotoUrl" class="form-control" id="answer" />
+                <label asp-for="PhotoUrl" class="control-label">Şəkil</label>
+                <input asp-for="PhotoUrl" name="PhotoUrl" class="form-control" type="file" />
                 <span asp-validation-for="PhotoUrl" class="text-danger"></span>
             </div>
             <div class="form-group">

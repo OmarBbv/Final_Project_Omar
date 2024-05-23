@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
-using Entities.Concrete.TableModels;
+using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -8,6 +9,12 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
     public class BookingController : Controller
     {
         BookingManager _booking = new();
+        private readonly IWebHostEnvironment _env;
+
+        public BookingController(IWebHostEnvironment webHostEnvironment)
+        {
+            _env = webHostEnvironment;
+        }
 
         public IActionResult Index()
         {
@@ -22,14 +29,15 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Booking booking)
+        public IActionResult Create(BookingCreateDto dto,IFormFile photoUrl)
         {
-            var data = _booking.Add(booking);
+            
+            var data = _booking.Add(dto,photoUrl,_env.WebRootPath);
             if (data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(booking);
+            return View(dto);
         }
 
         [HttpGet]
@@ -40,14 +48,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Booking booking)
+        public IActionResult Edit(BookingUpdateDto dto,IFormFile photoUrl)
         {
-            var result = _booking.Update(booking);
+            var result = _booking.Update(dto, photoUrl, _env.WebRootPath);
             if (result.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(booking);
+            return View(dto);
         }
         [HttpPost]
         public IActionResult Delete(int id)

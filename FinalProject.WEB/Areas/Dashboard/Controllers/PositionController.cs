@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -22,7 +23,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Position p)
+        public IActionResult Create(PositionCreateDto p)
         {
             var data = _position.Add(p);
             if (data.IsSuccess)
@@ -40,7 +41,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Position p)
+        public IActionResult Edit(PositionUpdateData p)
         {
             var result = _position.Update(p);
             if (result.IsSuccess)

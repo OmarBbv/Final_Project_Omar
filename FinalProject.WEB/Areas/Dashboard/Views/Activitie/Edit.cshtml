@@ -13,9 +13,9 @@
             <div class="form-group">
                 <label asp-for="AboutId" class="control-label">Fəaliyyətlər</label>
                 <select asp-for="AboutId" class="form-control">
-                    @foreach (var item in ViewData["Activitie"] as IEnumerable<Activitie>)
+                    @foreach (var item in ViewData["AboutCategory"] as IEnumerable<About>)
                     {
-                        <option value="@item.Id">@item.</option>
+                        <option value="@item.Id">@item.Title</option>
                     }
                 </select>
             </div>

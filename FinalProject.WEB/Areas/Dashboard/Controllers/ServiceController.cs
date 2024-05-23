@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -22,7 +23,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Service s)
+        public IActionResult Create(ServiceCreateDto s)
         {
             var data = _manager.Add(s);
             if (data.IsSuccess)
@@ -40,7 +41,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Service s)
+        public IActionResult Edit(ServiceUpdateDto s)
         {
             var result = _manager.Update(s);
             if (result.IsSuccess)

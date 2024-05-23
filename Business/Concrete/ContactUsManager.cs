@@ -4,17 +4,19 @@ using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 
 namespace Business.Concrete
 {
     public class ContactUsManager : IContactUsService
     {
-        ContactUsDal _contact= new();
+        ContactUsDal _contact = new();
 
-        public IResult Add(ContactUs entity)
+        public IResult Add(ContactUsCreateDto dto)
         {
-            _contact.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+            var model = ContactUsCreateDto.ToContactUsDto(dto);
+            _contact.Add(model);
+            return new SuccessResult(UIMessages.Deleted_MESSAGE);
         }
 
         public IResult Delete(int id)
@@ -38,10 +40,12 @@ namespace Business.Concrete
             return new SuccessDataResult<ContactUs>(data);
         }
 
-        public IResult Update(ContactUs entity)
+        public IResult Update(ContactUsUpdateDto dto)
         {
-            _contact.Update(entity);
-            return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
+            var model = ContactUsUpdateDto.ToContactUs(dto);
+            model.LastUpdateDate = DateTime.Now;
+            _contact.Update(model);
+            return new SuccessResult(UIMessages.UPDATE_MESSAGE);
         }
     }
 }

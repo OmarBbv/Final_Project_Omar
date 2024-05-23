@@ -4,7 +4,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <form action="Testimonial/Create" method="get">
+                <form action="Testimonial/Create" method="get" enctype="multipart/form-data">
                     <p>
                         <button class="btn btn-primary">@DefaultConstanValue.ADD_MESSAGE</button>
                     </p>
@@ -15,8 +15,8 @@
                             <th>Ad</th>
                             <th>Soyad</th>
                             <th>Ünvan</th>
-                            <th>Şəkil Url</th>
                             <th>Geridönüşlər</th>
+                            <th>Şəkil Url</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -27,8 +27,10 @@
                                 <td>@item.FirstName</td>
                                 <td>@item.LastName</td>
                                 <td>@item.Location</td>
-                                <td>@item.PhotoUrl</td>
                                 <td>@item.FeedBack</td>
+                                <td>
+                                    <img src="@item.PhotoUrl" width="120" height="120" />
+                                </td>
 
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id">

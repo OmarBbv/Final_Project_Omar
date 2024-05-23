@@ -4,6 +4,7 @@ using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,11 @@ namespace Business.Concrete
 
         ReservationDal _reservation = new();
 
-        public IResult Add(Reservation entity)
+        public IResult Add(ReservationCreateDto dto)
         {
-            _reservation.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.ADDED_MESSAGE);
+            var model = ReservationCreateDto.ToPosition(dto);
+            _reservation.Add(model);
+            return new SuccessResult(UIMessages.ADDED_MESSAGE);
         }
 
         public IResult Delete(int id)
@@ -44,10 +46,12 @@ namespace Business.Concrete
             return new SuccessDataResult<Reservation>(data);
         }
 
-        public IResult Update(Reservation entity)
+        public IResult Update(ReservationUpdateDto dto)
         {
-            _reservation.Update(entity);
-            return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
+            var model = ReservationUpdateDto.ToReservation(dto);
+            model.LastUpdateDate = DateTime.Now;
+            _reservation.Update(model);
+            return new SuccessResult(UIMessages.UPDATE_MESSAGE);
         }
     }
 }

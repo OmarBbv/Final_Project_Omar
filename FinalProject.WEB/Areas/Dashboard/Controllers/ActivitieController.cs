@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -16,6 +17,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
             //var data = _manager.GetAll().Data.Where(x => x.Deleted == 0).ToList();
             return View(data);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -24,14 +26,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Activitie activitie )
+        public IActionResult Create(ActivitieCreateDto dto)
         {
-            var result=_manager.Add(activitie);
+            var result =_manager.Add(dto);
             if(result.IsSuccess)
             {
                 return  RedirectToAction("Index");
             }
-            return View(result);
+            return View(dto);
         }
         [HttpGet]
         public IActionResult Edit(int id)
@@ -42,14 +44,15 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
 
             return View(data);
         }
+
         [HttpPost]
-        public IActionResult Edit(Activitie activitie)
+        public IActionResult Edit(ActivitieUpdateDto dto)
         {
-            var result = _manager.Update(activitie);
+            var result = _manager.Update(dto);
             if (result.IsSuccess)
                 return RedirectToAction("Index");
 
-            return View(activitie);
+            return View(dto);
         }
         [HttpPost]
         public IActionResult Delete(int id)

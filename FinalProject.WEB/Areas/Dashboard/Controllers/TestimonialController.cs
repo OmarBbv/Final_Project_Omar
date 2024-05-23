@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -9,6 +10,13 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
     {
 
         TestimonialsManager _manager = new();
+        private readonly IWebHostEnvironment _env;
+
+
+        public TestimonialController(IWebHostEnvironment webHostEnvironment)
+        {
+            _env = webHostEnvironment;
+        }
 
         public IActionResult Index()
         {
@@ -23,14 +31,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Testimonial p)
+        public IActionResult Create(TestimonialCreateDto dto, IFormFile photoUrl)
         {
-            var data = _manager.Add(p);
+            var data = _manager.Add(dto,photoUrl,_env.WebRootPath);
             if (data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(p);
+            return View(dto);
         }
 
         [HttpGet]
@@ -41,14 +49,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Testimonial p)
+        public IActionResult Edit(TestimonialUpdateDto dto, IFormFile photoUrl)
         {
-            var result = _manager.Update(p);
+            var result = _manager.Update(dto,photoUrl,_env.WebRootPath);
             if (result.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(p);
+            return View(dto);
         }
 
         [HttpPost]

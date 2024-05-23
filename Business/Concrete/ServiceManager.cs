@@ -4,6 +4,7 @@ using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 
 namespace Business.Concrete
 {
@@ -11,10 +12,11 @@ namespace Business.Concrete
     {
         ServiceDal _service = new();
 
-        public IResult Add(Service entity)
+        public IResult Add(ServiceCreateDto dto)
         {
-            _service.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.ADDED_MESSAGE);
+            var model = ServiceCreateDto.ToService(dto);
+            _service.Add(model);
+            return new SuccessResult(UIMessages.ADDED_MESSAGE);
         }
 
         public IResult Delete(int id)
@@ -38,10 +40,12 @@ namespace Business.Concrete
             return new SuccessDataResult<Service>(data);
         }
 
-        public IResult Update(Service entity)
+        public IResult Update(ServiceUpdateDto dto)
         {
-            _service.Update(entity);
-            return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
+            var model = ServiceUpdateDto.ToService(dto);
+            model.LastUpdateDate = DateTime.Now;
+            _service.Update(model);
+            return new SuccessResult(UIMessages.UPDATE_MESSAGE);
         }
     }
 }

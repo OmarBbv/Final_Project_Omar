@@ -24,7 +24,9 @@
                             <tr>
                                 <td>@item.Title</td>
                                 <td>@item.Description</td>
-                                <td>@item.IconUrl</td>
+                                <td>
+                                    <img src="@item.IconUrl" width="120" height="120" />
+                                </td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id">
                                         <i class="fa-solid fa-pen-to-square"></i>

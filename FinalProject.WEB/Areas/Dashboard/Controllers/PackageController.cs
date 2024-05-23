@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -9,6 +10,13 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
     {
 
         PackageManager _package = new();
+        private readonly IWebHostEnvironment _env;
+
+
+        public PackageController(IWebHostEnvironment webHostEnvironment)
+        {
+            _env = webHostEnvironment;
+        }
 
         public IActionResult Index()
         {
@@ -23,14 +31,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Package p)
+        public IActionResult Create(PackageCreateDto dto, IFormFile photoUrl)
         {
-            var data = _package.Add(p);
+            var data = _package.Add(dto, photoUrl, _env.WebRootPath);
             if (data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(p);
+            return View(dto);
         }
 
         [HttpGet]
@@ -41,14 +49,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Package p)
+        public IActionResult Edit(PackageUpdateDto dto,IFormFile photoUrl)
         {
-            var result = _package.Update(p);
+            var result = _package.Update(dto,photoUrl,_env.WebRootPath);
             if (result.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(p);
+            return View(dto);
         }
 
         [HttpPost]

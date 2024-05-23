@@ -16,6 +16,7 @@ namespace Entities.Dtos
                 Id = dto.Id,
                 Title = dto.Title,
                 Description = dto.Description,
+                PhotoUrl = dto.PhotoUrl
             };
 
             return about;

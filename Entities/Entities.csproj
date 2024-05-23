@@ -10,17 +10,4 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Activitie\" />
-    <Folder Include="Dtos\Booking\" />
-    <Folder Include="Dtos\ContactUs\" />
-    <Folder Include="Dtos\Destination\" />
-    <Folder Include="Dtos\Testimonial\" />
-    <Folder Include="Dtos\Team\" />
-    <Folder Include="Dtos\Service\" />
-    <Folder Include="Dtos\Reservation\" />
-    <Folder Include="Dtos\Position\" />
-    <Folder Include="Dtos\Package\" />
-  </ItemGroup>
-
 </Project>

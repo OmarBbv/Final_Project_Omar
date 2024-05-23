@@ -4,6 +4,7 @@ using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 
 namespace Business.Concrete
 {
@@ -11,10 +12,11 @@ namespace Business.Concrete
     {
         PositionDal _position = new();
 
-        public IResult Add(Position entity)
+        public IResult Add(PositionCreateDto dto)
         {
-            _position.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.ADDED_MESSAGE);
+            var model = PositionCreateDto.ToPosition(dto);
+            _position.Add(model);
+            return new SuccessResult(UIMessages.ADDED_MESSAGE);
         }
 
         public IResult Delete(int id)
@@ -37,10 +39,12 @@ namespace Business.Concrete
             return new SuccessDataResult<Position>(data);
         }
 
-        public IResult Update(Position entity)
+        public IResult Update(PositionUpdateData dto)
         {
-            _position.Update(entity);
-            return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
+            var model = PositionUpdateData.ToPosition(dto);
+            model.LastUpdateDate = DateTime.Now;
+            _position.Update(model);
+            return new SuccessResult(UIMessages.UPDATE_MESSAGE);
         }
     }
 }

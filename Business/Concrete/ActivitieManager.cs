@@ -1,10 +1,9 @@
 ﻿using Business.Abstract;
-using Business.BaseMessage;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Entities.Dtos;
 
 namespace Business.Concrete
 {
@@ -12,9 +11,10 @@ namespace Business.Concrete
     {
         ActivitieDal _activitie = new();
 
-        public IResult Add(Activitie entity)
+        public IResult Add(ActivitieCreateDto dto)
         {
-            _activitie.Add(entity);
+            var model = ActivitieCreateDto.ToActivitie(dto);
+            _activitie.Add(model);
             return new SuccessResult(UIMessage.UIMessages.ADDED_MESSAGE);
         }
 
@@ -45,10 +45,14 @@ namespace Business.Concrete
             return new SuccessDataResult<Activitie>(data);
         }
 
-        public IResult Update(Activitie entity)
+        public IResult Update(ActivitieUpdateDto dto)
         {
-            _activitie.Update(entity);
+            var model = ActivitieUpdateDto.ToActivitie(dto);
+            model.LastUpdateDate = DateTime.Now;
+            _activitie.Update(model); ;
             return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
         }
+
+       
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Business.Abstract;
 using Business.UIMessage;
+using Core.Extension;
 using Core.Results.Abstract;
 using Core.Results.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
 {
@@ -11,10 +14,21 @@ namespace Business.Concrete
     {
         BookingDal _booking = new();
 
-        public IResult Add(Booking entity)
+        //public IResult Add(BookingCreateDto dto)
+        //{
+        //    var model = BookingCreateDto.ToBooking(dto);
+        //    _booking.Add(model);
+        //    return new SuccessResult(UIMessages.Deleted_MESSAGE);
+
+
+        //}
+
+        public IResult Add(BookingCreateDto dto, IFormFile photoUrl, string webRootPath)
         {
-            _booking.Add(entity);
-            return new SuccessResult(UIMessage.UIMessages.Deleted_MESSAGE);
+            var model = BookingCreateDto.ToBooking(dto);
+            model.IconUrl = PictureHelper.UploadImage(photoUrl, webRootPath);
+            _booking.Add(model);
+            return new SuccessResult(UIMessages.Deleted_MESSAGE);
         }
 
         public IResult Delete(int id)
@@ -39,10 +53,31 @@ namespace Business.Concrete
             return new SuccessDataResult<Booking>(data);
         }
 
-        public IResult Update(Booking entity)
+        //public IResult Update(BookingUpdateDto dto)
+        //{
+        //    var model = BookingUpdateDto.ToAbout(dto);
+        //    model.LastUpdateDate = DateTime.Now;
+        //    _booking.Update(model);
+        //    return new SuccessResult(UIMessages.UPDATE_MESSAGE);
+        //}
+
+        public IResult Update(BookingUpdateDto dto, IFormFile photoUrl, string webRootPath)
         {
-            _booking.Update(entity);
-            return new SuccessResult(UIMessage.UIMessages.UPDATE_MESSAGE);
+            var model = BookingUpdateDto.ToAbout(dto);
+            var value = GetById(dto.Id).Data;
+            if (photoUrl == null)
+            {
+                model.IconUrl =value.IconUrl;
+            }
+            else
+            {
+                model.IconUrl = PictureHelper.UploadImage(photoUrl, webRootPath);
+            }
+
+            model.LastUpdateDate = DateTime.Now;
+            _booking.Update(model);
+            return new SuccessResult(UIMessages.UPDATE_MESSAGE);
+
         }
     }
 }

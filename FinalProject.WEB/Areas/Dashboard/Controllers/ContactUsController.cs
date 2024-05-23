@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -22,7 +23,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ContactUs contact)
+        public IActionResult Create(ContactUsCreateDto contact)
         {
             var data =_contact.Add(contact);
             if(data.IsSuccess)
@@ -41,7 +42,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(ContactUs contact)
+        public IActionResult Edit(ContactUsUpdateDto contact)
         {
             var result = _contact.Update(contact);
             if(result.IsSuccess)

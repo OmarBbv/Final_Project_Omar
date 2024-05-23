@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Entities.Concrete.TableModels;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.WEB.Areas.Dashboard.Controllers
@@ -22,14 +23,14 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Reservation reservation)
+        public IActionResult Create(ReservationCreateDto dto)
         {
-            var data = _manager.Add(reservation);
+            var data = _manager.Add(dto);
             if (data.IsSuccess)
             {
                 return RedirectToAction("Index");
             }
-            return View(reservation);
+            return View(dto);
         }
 
         [HttpGet]
@@ -40,7 +41,7 @@ namespace FinalProject.WEB.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Reservation reservation)
+        public IActionResult Edit(ReservationUpdateDto reservation)
         {
             var result = _manager.Update(reservation);
             if (result.IsSuccess)
